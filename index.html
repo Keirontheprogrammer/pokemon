@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PokeAPI Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Pokémon Search</h1>
+        <div class="search-bar">
+            <input type="text" id="pokemonName" placeholder="Enter Pokémon name or ID">
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div id="pokemonCard" class="hidden">
+            <img id="pokemonImage" alt="Pokemon Image">
+            <h2 id="pokemonDisplayName"></h2>
+            <p id="pokemonType"></p>
+            <div class="stats">
+                <h3>Base Stats</h3>
+                <ul id="pokemonStats"></ul>
+            </div>
+        </div>
+        <div id="errorMessage" class="hidden">
+            <p>Pokémon not found. Please try again.</p>
+        </div>
+    </div>
+
+    <script src="java.js"></script>
+</body>
+</html>
