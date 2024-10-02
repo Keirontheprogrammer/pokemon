@@ -146,3 +146,25 @@ function triggerEffect(types) {
     }
     // Add more effects for other types as desired...
 }
+
+
+// const images = [
+//     '527854-download-free-pokemon-wallpaper-hd-1920x1080.jpg', // replace with your actual image path
+//     'poke-balls-digital-art-balls-fantasy-art-wallpaper-preview.jpg', 
+//     'ca7bf09f2eaf2b1792c74b2fcbfb2a02.jpg',
+//     'HD-wallpaper-pokemon-7.jpg',
+//     'pokemon-4k-tnv60n78qzofhci2.jpg'
+// ];
+
+// let currentIndex = 0;
+
+// function changeBackground() {
+//     document.body.style.backgroundImage = `url(${images[currentIndex]})`;
+//     currentIndex = (currentIndex + 1) % images.length; // Cycle through the images
+// }
+
+// // Initial background setup
+// document.body.style.backgroundImage = `url(${images[0]})`;
+
+// // Change background every 5 seconds
+// setInterval(changeBackground, 4000);
