@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PokeAPI Search</title>
+    <title>Pokémon Search</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
     <div class="container">
         <h1>Pokémon Search</h1>
         <div class="search-bar">
@@ -16,18 +14,30 @@
             <button id="searchBtn">Search</button>
         </div>
 
+        <!-- Dropdown for Pokémon names -->
+        <div class="dropdown">
+            <label for="pokemonDropdown">Or select a Pokémon: </label>
+            <select id="pokemonDropdown">
+                <option value="">Select a Pokémon</option>
+                <!-- Pokémon names will be populated here dynamically -->
+            </select>
+        </div>
+
+        <!-- Pokémon Display Card -->
         <div id="pokemonCard" class="hidden">
-            <img id="pokemonImage" alt="Pokemon Image">
             <h2 id="pokemonDisplayName"></h2>
+            <img id="pokemonImage" src="" alt="Pokemon Image">
             <p id="pokemonType"></p>
             <div class="stats">
-                <h3>Base Stats</h3>
+                <h3>Stats:</h3>
                 <ul id="pokemonStats"></ul>
             </div>
         </div>
-        <div id="errorMessage" class="hidden">
-            <p>Pokémon not found. Please try again.</p>
-        </div>
+
+        <!-- Virtual Effect Container -->
+        <div id="effectContainer"></div>
+
+        <p id="errorMessage" class="hidden">Pokémon not found! Try another name or ID.</p>
     </div>
 
     <script src="java.js"></script>

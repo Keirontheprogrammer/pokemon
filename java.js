@@ -1,6 +1,8 @@
-// script.js
-
 document.getElementById('searchBtn').addEventListener('click', fetchPokemon);
+document.getElementById('pokemonDropdown').addEventListener('change', handleDropdownSelection);
+
+// Fetch Pokémon names for the dropdown on page load
+window.onload = fetchPokemonNames;
 
 function fetchPokemon() {
     const pokemonNameOrId = document.getElementById('pokemonName').value.toLowerCase().trim();
@@ -14,10 +16,13 @@ function fetchPokemon() {
             return response.json();
         })
         .then(data => {
+            console.log(data); // Log the response for debugging
             displayPokemon(data);
             changeBackgroundColor(data.types); // Call to change background color
+            triggerEffect(data.types); // Call function to trigger special effects based on type
         })
         .catch(err => {
+            console.error(err); // Log the error for debugging
             document.getElementById('errorMessage').classList.remove('hidden');
             document.getElementById('pokemonCard').classList.add('hidden');
         });
@@ -28,9 +33,14 @@ function displayPokemon(data) {
     document.getElementById('errorMessage').classList.add('hidden');
     document.getElementById('pokemonCard').classList.remove('hidden');
 
-    // Set Pokémon image
-    document.getElementById('pokemonImage').src = data.sprites.front_default;
-    document.getElementById('pokemonImage').alt = data.name;
+    // Check if the Pokémon has an image (sometimes front_default can be null)
+    if (data.sprites.front_default) {
+        document.getElementById('pokemonImage').src = data.sprites.front_default;
+        document.getElementById('pokemonImage').alt = data.name;
+    } else {
+        document.getElementById('pokemonImage').src = 'default-image.jpg';  // Fallback image in case none is found
+        document.getElementById('pokemonImage').alt = 'No image available';
+    }
 
     // Set Pokémon name
     document.getElementById('pokemonDisplayName').textContent = capitalizeFirstLetter(data.name);
@@ -47,6 +57,33 @@ function displayPokemon(data) {
         statItem.textContent = `${capitalizeFirstLetter(stat.stat.name)}: ${stat.base_stat}`;
         statsList.appendChild(statItem);
     });
+}
+
+// Fetch the list of all Pokémon names for the dropdown
+function fetchPokemonNames() {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=1000')  // Get first 1000 Pokémon
+        .then(response => response.json())
+        .then(data => {
+            populateDropdown(data.results);
+        })
+        .catch(err => console.error('Error fetching Pokémon names:', err));
+}
+
+// Populate the dropdown with Pokémon names
+function populateDropdown(pokemonList) {
+    const dropdown = document.getElementById('pokemonDropdown');
+    pokemonList.forEach(pokemon => {
+        const option = document.createElement('option');
+        option.value = pokemon.name;
+        option.textContent = capitalizeFirstLetter(pokemon.name);
+        dropdown.appendChild(option);
+    });
+}
+
+// Handle selection from the dropdown and populate the search bar
+function handleDropdownSelection() {
+    const selectedPokemon = document.getElementById('pokemonDropdown').value;
+    document.getElementById('pokemonName').value = selectedPokemon;
 }
 
 // Utility function to capitalize first letter of a string
@@ -86,4 +123,26 @@ function changeBackgroundColor(types) {
 
     // Optionally, change container background color for contrast
     document.querySelector('.container').style.backgroundColor = `rgba(255, 255, 255, 0.8)`;
+}
+
+// Function to trigger special effect based on Pokémon type
+function triggerEffect(types) {
+    const effectContainer = document.getElementById('effectContainer');
+    effectContainer.innerHTML = ''; // Clear previous effects
+    const mainType = types[0].type.name;
+
+    if (mainType === 'electric') {
+        const lightning = document.createElement('div');
+        lightning.classList.add('lightning');
+        effectContainer.appendChild(lightning);
+    } else if (mainType === 'fire') {
+        const fireSpark = document.createElement('div');
+        fireSpark.classList.add('fire-spark');
+        effectContainer.appendChild(fireSpark);
+    } else if (mainType === 'water') {
+        const waterSplash = document.createElement('div');
+        waterSplash.classList.add('water-splash');
+        effectContainer.appendChild(waterSplash);
+    }
+    // Add more effects for other types as desired...
 }

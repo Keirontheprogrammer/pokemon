@@ -1,11 +1,11 @@
 /* styles.css */
 body {
     font-family: 'Arial', sans-serif;
-    background-image:url('Pokemon-Characters-Wallpaper-Free-Download.jpg');
+    background-image:url('ca7bf09f2eaf2b1792c74b2fcbfb2a02.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: #333;
+    color: rgb(22, 128, 228);
     margin: 0;
     padding: 0;
     transition: background-color 0.5s ease-in-out; /* Smooth background color transition */
@@ -16,7 +16,8 @@ body {
     margin: 50px auto;
     padding: 20px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+   
+    background-image: url('d7pya7f-22cc4f26-befd-45f9-95b1-84394eca74e4.jpg');
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     border-radius: 10px;
     transition: background-color 0.5s ease-in-out; /* Smooth container color transition */
@@ -58,7 +59,6 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #f9f9f9;
     padding: 20px;
     margin-top: 20px;
     border-radius: 10px;
@@ -66,8 +66,8 @@ button:hover {
 }
 
 #pokemonCard img {
-    width: 350px; /* Increase Pokémon image size */
-    height: 350px; /* Increase Pokémon image size */
+    width: 300px; /* Increase Pokémon image size */
+    height: 300px; /* Increase Pokémon image size */
     transition: transform 0.5s ease-in-out; /* Smooth size transition on hover */
     transform: rotateY(180deg);
       
@@ -107,4 +107,15 @@ h2 {
     margin-top: 20px;
     color: red;
     font-weight: bold;
+}
+
+.dropdown {
+    margin: 20px 0;
+}
+
+select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
