@@ -235,3 +235,43 @@ function displayEvolutionChain(chain) {
         document.getElementById('evolutionChain').classList.add('hidden');
     }
 }
+
+// Fetch Pokémon Data and Display Animated Sprite
+function fetchPokemonData(pokemon) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+        .then(response => response.json())
+        .then(data => {
+            displayPokemonData(data);
+            fetchEvolutionChain(data.species.url); // Fetch Evolution Chain
+        })
+        .catch(error => {
+            document.getElementById('errorMessage').classList.remove('hidden');
+            console.error('Error fetching Pokémon:', error);
+        });
+}
+
+function displayPokemonData(data) {
+    document.getElementById('pokemonDisplayName').textContent = data.name;
+    
+    // Display Animated Sprite if available, else fallback to official artwork
+    const animatedSpriteUrl = data.sprites.versions['generation-v']['black-white'].animated.front_default;
+    const staticArtworkUrl = data.sprites.other['official-artwork'].front_default;
+
+    if (animatedSpriteUrl) {
+        document.getElementById('pokemonAnimatedSprite').src = animatedSpriteUrl; // Use animated sprite
+    } else {
+        document.getElementById('pokemonAnimatedSprite').src = staticArtworkUrl; // Fallback to official artwork
+    }
+    
+    document.getElementById('pokemonType').textContent = `Type: ${data.types.map(type => type.type.name).join(', ')}`;
+    
+    const statsList = document.getElementById('pokemonStats');
+    statsList.innerHTML = ''; // Clear previous stats
+    data.stats.forEach(stat => {
+        const statItem = document.createElement('li');
+        statItem.textContent = `${stat.stat.name}: ${stat.base_stat}`;
+        statsList.appendChild(statItem);
+    });
+    
+    document.getElementById('pokemonCard').classList.remove('hidden');
+}
