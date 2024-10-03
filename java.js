@@ -148,23 +148,90 @@ function triggerEffect(types) {
 }
 
 
-// const images = [
-//     '527854-download-free-pokemon-wallpaper-hd-1920x1080.jpg', // replace with your actual image path
-//     'poke-balls-digital-art-balls-fantasy-art-wallpaper-preview.jpg', 
-//     'ca7bf09f2eaf2b1792c74b2fcbfb2a02.jpg',
-//     'HD-wallpaper-pokemon-7.jpg',
-//     'pokemon-4k-tnv60n78qzofhci2.jpg'
-// ];
+document.getElementById('themeSwitch').addEventListener('change', function () {
+    if (this.checked) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+});
 
-// let currentIndex = 0;
+// Fetching Pokémon Data and Evolution Chain
+document.getElementById('searchBtn').addEventListener('click', function () {
+    const pokemonName = document.getElementById('pokemonName').value.toLowerCase();
+    fetchPokemonData(pokemonName);
+});
 
-// function changeBackground() {
-//     document.body.style.backgroundImage = `url(${images[currentIndex]})`;
-//     currentIndex = (currentIndex + 1) % images.length; // Cycle through the images
-// }
+function fetchPokemonData(pokemon) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+        .then(response => response.json())
+        .then(data => {
+            displayPokemonData(data);
+            fetchEvolutionChain(data.species.url); // Fetch Evolution Chain
+        })
+        .catch(error => {
+            document.getElementById('errorMessage').classList.remove('hidden');
+            console.error('Error fetching Pokémon:', error);
+        });
+}
 
-// // Initial background setup
-// document.body.style.backgroundImage = `url(${images[0]})`;
+function displayPokemonData(data) {
+    document.getElementById('pokemonDisplayName').textContent = data.name;
+    document.getElementById('pokemonImage').src = data.sprites.other['official-artwork'].front_default;
+    document.getElementById('pokemonType').textContent = `Type: ${data.types.map(type => type.type.name).join(', ')}`;
+    
+    const statsList = document.getElementById('pokemonStats');
+    statsList.innerHTML = ''; // Clear previous stats
+    data.stats.forEach(stat => {
+        const statItem = document.createElement('li');
+        statItem.textContent = `${stat.stat.name}: ${stat.base_stat}`;
+        statsList.appendChild(statItem);
+    });
+    
+    document.getElementById('pokemonCard').classList.remove('hidden');
+}
 
-// // Change background every 5 seconds
-// setInterval(changeBackground, 4000);
+// Fetching Evolution Chain
+function fetchEvolutionChain(speciesUrl) {
+    fetch(speciesUrl)
+        .then(response => response.json())
+        .then(speciesData => {
+            fetch(speciesData.evolution_chain.url)
+                .then(response => response.json())
+                .then(evolutionData => {
+                    displayEvolutionChain(evolutionData.chain);
+                });
+        });
+}
+
+function displayEvolutionChain(chain) {
+    const evolutionChain = [];
+
+    let currentStage = chain;
+    do {
+        const name = currentStage.species.name;
+        const id = currentStage.species.url.split('/')[6]; // Extract Pokémon ID from URL
+        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        evolutionChain.push({ name, imageUrl });
+        currentStage = currentStage.evolves_to[0];
+    } while (currentStage);
+
+    // Display Evolution Chain
+    if (evolutionChain.length > 0) {
+        document.getElementById('evolutionChain').classList.remove('hidden');
+        document.getElementById('evolution1Name').textContent = evolutionChain[0].name;
+        document.getElementById('evolution1Image').src = evolutionChain[0].imageUrl;
+
+        if (evolutionChain[1]) {
+            document.getElementById('evolution2Name').textContent = evolutionChain[1].name;
+            document.getElementById('evolution2Image').src = evolutionChain[1].imageUrl;
+        }
+
+        if (evolutionChain[2]) {
+            document.getElementById('evolution3Name').textContent = evolutionChain[2].name;
+            document.getElementById('evolution3Image').src = evolutionChain[2].imageUrl;
+        }
+    } else {
+        document.getElementById('evolutionChain').classList.add('hidden');
+    }
+}

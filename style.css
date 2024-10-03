@@ -246,3 +246,67 @@ footer {
     font-size: 1.2rem;
     text-align: center;
 }
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    display: none;
+}
+
+.theme-switch + .toggle-label {
+    cursor: pointer;
+    background-color: lightgray;
+    border-radius: 20px;
+    padding: 5px 20px;
+    color: black;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.theme-switch:checked + .toggle-label {
+    background-color: #333;
+    color: white;
+}
+
+/* Evolution Chain */
+.evolution-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.evolution-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.evolution-stage img {
+    width: 150px;
+    height: 150px;
+    transition: transform 0.5s ease-in-out;
+}
+
+.evolution-stage img:hover {
+    transform: scale(1.1); 
+}
+
+.hidden {
+    display: none;
+}
