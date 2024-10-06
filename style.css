@@ -163,7 +163,7 @@ nav ul li a:hover {
 }
 
 /* Dark Mode */
-.dark-mode {
+/* .dark-mode {
     background-color: #121212;
     color: white;
 }
@@ -196,7 +196,7 @@ nav {
 .theme-switch:checked + .toggle-label {
     background-color: #333;
     color: white;
-}
+} */
 
 /* Evolution Chain */
 .evolution-container {
@@ -291,3 +291,80 @@ nav {
         padding: 20px;
     }
 }
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    background-color: #ff3e00;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    background-color: #ff5722;
+}
+
+ul#animationsList, ul#gamesList {
+    padding: 0;
+    list-style-type: none;
+    margin: 0 auto;
+    max-width: 500px;
+    text-align: left;
+}
+
+ul#animationsList li, ul#gamesList li {
+    background-color: #eee;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+ul#animationsList li:hover, ul#gamesList li:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Animations */
+ul#animationsList li:nth-child(1) {
+    background-image: url('first movie.jpg'); /* Replace with actual animation image */
+}
+ul#animationsList li:nth-child(2) {
+    background-image: url('darkrai.jpg');
+}
+ul#animationsList li:nth-child(3) {
+    background-image: url('the power of one.jpg');
+}
+
+
+/* Games */
+ul#gamesList li:nth-child(1) {
+    background-image: url('Sword Shield.jpg'); /* Replace with actual game image */
+}
+ul#gamesList li:nth-child(2) {
+    background-image: url('gold silver.jpeg');
+}
+ul#gamesList li:nth-child(3) {
+    background-image: url('red blue.jpeg');
+}
+
